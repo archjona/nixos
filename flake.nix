@@ -23,7 +23,7 @@
           # Hier kannst du deine Home Manager Module einfügen
           ./home.nix  # Beispiel für eine separate Home Manager Konfigurationsdatei
         ];
-        home.directory = "/home/myUser";  # Dein Home-Verzeichnis (anpassen)
+        home.directory = "/home/jona";  # Dein Home-Verzeichnis (anpassen)
         home.stateVersion = "22.05";  # Version von Home Manager (anpassen)
       };
     };
