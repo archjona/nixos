@@ -155,6 +155,7 @@
    zathura
    texlivePackages.latexmk
    texliveFull
+   tests.texlive.allLanguages.latex
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
