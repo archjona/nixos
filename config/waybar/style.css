@@ -3,7 +3,7 @@
   border-radius: 8px;
   font-family: "JetbrainsMono Nerd Font";
   font-size: 14px; /* Standard kleiner für alle */
-  min-height: 18px; /* etwas kleiner */
+  min-height: 0px; /* etwas kleiner */
 }
 
 /* Launcher groß lassen */
@@ -30,7 +30,7 @@ window#waybar.hidden {
 
 /* Fenster */
 #window {
-  margin-top: 6px;
+  margin-top: 3px;
   padding-left: 10px;
   padding-right: 10px;
   border-radius: 10px;
