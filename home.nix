@@ -80,13 +80,40 @@ dconf.settings = {
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
-  home.file.".config/hypr".source = ./config/hypr; 
-  home.file.".config/waybar".source = ./config/waybar; 
-  home.file.".config/ghostty".source = ./config/ghostty; 
-  home.file.".config/btop".source = ./config/btop; 
-  home.file.".config/rofi".source = ./config/rofi; 
-  # Home Manager can also manage your environment variables through
-  # 'home.sessionVariables'. These will be explicitly sourced when using a
+home.file.".config/hypr" = {
+    source = ./config/hypr;
+    recursive = true;
+    force = true;
+  };
+
+  home.file.".config/waybar" = {
+    source = ./config/waybar;
+    recursive = true;
+    force = true;
+  };
+
+  home.file.".config/ghostty" = {
+    source = ./config/ghostty;
+    recursive = true;
+    force = true;
+  };
+
+  home.file.".config/btop" = {
+    source = ./config/btop;
+    recursive = true;
+    force = true;
+  };
+
+  home.file.".config/rofi" = {
+    source = ./config/rofi;
+    recursive = true;
+    force = true;
+  };
+
+
+
+        # 'home.sessionVariables'. These will be explicitly sourced when using a
+
   # shell provided by Home Manager. If you don't want to manage your shell
   # through Home Manager then you have to manually source 'hm-session-vars.sh'
   # located at either
