@@ -14,15 +14,25 @@
     terminal.toggleterm.lazygit.enable = true;
     lsp.enable = true;
 
-    startPlugins = [
-      pkgs.vimPlugins.vimtex
-    ];
+    # Plugins laut NVF Doku
+    extraPlugins = {
+      vimtex = {
+        package = pkgs.vimPlugins.vimtex;
+      };
+    };
 
-    # Hier war der Fehler: Innerhalb von "vim = {" darfst du 
-    # nicht nochmal "vim." schreiben.
+    # Konfiguration mit Hotkeys
     luaConfigRC.vimtex = ''
+      -- Leader auf Leertaste setzen
+      vim.g.mapleader = " "
+      vim.g.maplocalleader = " "
+
+      -- Vimtex Einstellungen
       vim.g.vimtex_compiler_method = "latexmk"
       vim.g.vimtex_view_method = "zathura"
+      
+      -- Optional: Zathura automatisch öffnen nach dem ersten Compile
+      vim.g.vimtex_view_automatic = 1
     '';
 
     navigation.harpoon = {
@@ -39,9 +49,9 @@
 
     languages = {
       enableTreesitter = true;
-      clang.lsp.enable = true;
       nix.enable = true;
       clang.enable = true;
+      clang.lsp.enable = true;
       lua.enable = true;
     };
   };
