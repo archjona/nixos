@@ -1,31 +1,31 @@
 {
-  description = "A very basic flake with Home Manager";
+  description = "Nixos config flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
-    home-manager.url = "github:nix-community/home-manager";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+    nvf.url = "github:notashelf/nvf";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager }: {
+  outputs = { self, nixpkgs, nvf, ... }@inputs: {
+    packages."x86_64-linux".default =
+      (nvf.lib.neovimConfiguration {
+        pkgs = nixpkgs.legacyPackages."x86_64-linux";
+        modules = [ ./nvf-configuration.nix ];
+      }).neovim;
+
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";  # Oder der passende System-Typ für dein System
-
+      specialArgs = { inherit inputs; };
       modules = [
-        ./configuration.nix  # Deine NixOS-Konfiguration
+        ./configuration.nix
+        ./tmux.nix                
+        inputs.home-manager.nixosModules.default
+        nvf.nixosModules.default
       ];
-    };
-
-    # Home Manager Konfiguration
-    homeConfigurations = {
-      myUser = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;  # Anpassen je nach System-Architektur
-        modules = [
-          # Hier kannst du deine Home Manager Module einfügen
-          ./home.nix  # Beispiel für eine separate Home Manager Konfigurationsdatei
-        ];
-        home.directory = "/home/jona";  # Dein Home-Verzeichnis (anpassen)
-        home.stateVersion = "22.05";  # Version von Home Manager (anpassen)
-      };
     };
   };
 }

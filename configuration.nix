@@ -2,12 +2,14 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, libs, inputs, ... }:
 
 {
   imports =
     [ # Include the results of the hardware scan.
       /etc/nixos/hardware-configuration.nix
+      inputs.home-manager.nixosModules.default
+       
     ];
 
   # Bootloader.
@@ -15,15 +17,15 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "nixos"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
+	nix.settings.experimental-features = [ "nix-command" "flakes" ];
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Enable networking
   networking.networkmanager.enable = true;
-  nix.settings.experimental-features = ["nix-command" "flakes"];
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
@@ -91,8 +93,27 @@
     ];
   };
 
+  home-manager = {
+  # also pass inputs to home-manager modules
+  extraSpecialArgs = {inherit inputs;};
+  users = {
+    "jona" = import ./home.nix;
+  };
+}; 
+
+
+
+
+  programs.hyprland.enable = true;
+  programs.hyprland.package = inputs.hyprland.packages."${pkgs.system}".hyprland;
+  xdg.portal.enable = true;
+  xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
+
+
+
+
   # Install firefox.
-  programs.firefox.enable = false;
+  programs.firefox.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -100,13 +121,38 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-     	wget
-    	vim
-   	ghostty	
-        git
-     	tealdeer
-     	xclip
-	bat
+  	inputs.self.packages.${pkgs.system}.default
+   vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+   wget
+   git
+   hyprpaper
+   waybar
+   pkgs.kitty
+   foot
+   ghostty
+   neovim
+   swww
+   pywal
+   gcc
+   cmake
+   clang
+   python3
+   nerd-fonts.jetbrains-mono
+   tmux
+   lazygit
+   hyprshot
+   hyprlock
+   hypridle
+   alsa-utils
+   rofi
+   btop
+   librewolf
+   steam
+   spotify
+   discord
+   flatpak
+   zoxide
+   fzf
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
