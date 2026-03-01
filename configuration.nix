@@ -152,6 +152,9 @@
    flatpak
    zoxide
    fzf
+   zathura
+   texlivePackages.latexmk
+   texliveFull
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

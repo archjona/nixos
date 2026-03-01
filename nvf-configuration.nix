@@ -14,6 +14,14 @@
        terminal.toggleterm.lazygit.enable = true;
        lsp.enable = true;
 
+     startPlugins = [
+                pkgs.vimPlugins.vimtex
+        ];
+     luaConfigRC = ''
+      vim.g.vimtex_compiler_method = "latexmk"
+      vim.g.vimtex_view_method = "zathura"
+    '';
+
      navigation.harpoon = {
       enable = true;
       mappings = {
