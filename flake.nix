@@ -21,6 +21,8 @@
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       specialArgs = { inherit inputs; };
       modules = [
+        { nixpkgs.hostPlatform = "x86_64-linux"; }
+        
         ./configuration.nix
         ./tmux.nix                
         inputs.home-manager.nixosModules.default

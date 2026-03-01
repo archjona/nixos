@@ -12,6 +12,7 @@
        telescope.enable = true;
        autocomplete.nvim-cmp.enable = true;
        terminal.toggleterm.lazygit.enable = true;
+       lsp.enable = true;
 
      navigation.harpoon = {
       enable = true;
@@ -25,9 +26,9 @@
       };
     };
 
+
                 
        languages = {
-       	 enableLSP = true;
 	 enableTreesitter = true;
 	 clang.lsp.enable = true; 
 	 nix.enable = true;
