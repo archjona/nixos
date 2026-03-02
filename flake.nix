@@ -11,21 +11,14 @@
     };
   };
 
-  outputs = { self, nixpkgs, nvf, ... }@inputs: {
-    packages."x86_64-linux".default =
-      (nvf.lib.neovimConfiguration {
-        pkgs = nixpkgs.legacyPackages."x86_64-linux";
-        modules = [ ./nvf-configuration.nix ];
-      }).neovim;
-
+  outputs = { self, nixpkgs, nvf, home-manager, ... }@inputs: {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       specialArgs = { inherit inputs; };
       modules = [
         { nixpkgs.hostPlatform = "x86_64-linux"; }
-        
         ./configuration.nix
-        ./tmux.nix                
-        inputs.home-manager.nixosModules.default
+        ./tmux.nix
+        home-manager.nixosModules.default
         nvf.nixosModules.default
       ];
     };
