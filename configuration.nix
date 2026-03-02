@@ -156,6 +156,8 @@
    texlivePackages.latexmk
    texliveFull
    tests.texlive.allLanguages.latex
+   docker
+   lazydocker
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
