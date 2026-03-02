@@ -28,6 +28,9 @@
 # font-family = Iosevka
 # window-padding-x = 2
 theme = Gruvbox Dark
+background-opacity = 0.9
+background-blur = true
+
 # # Spacing around the equals sign does not matter.
 # # All of these are identical:
 # key=value
