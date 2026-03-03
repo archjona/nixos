@@ -3,9 +3,14 @@
 {
   imports =
     [ 
-      ./hardware-configuration.nix # Nutzt die Datei im selben Ordner
+      /etc/nixos/hardware-configuration.nix # Nutzt die Datei im selben Ordner
       ./nvf-configuration.nix      # Bindet deine Neovim-Config ein
     ];
+
+
+        environment.sessionVariables = {
+  NIXOS_OZONE_WL = "1";
+};
 
   # Bootloader und Systemkonfiguration
   boot.loader.systemd-boot.enable = true;
