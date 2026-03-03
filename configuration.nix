@@ -127,6 +127,7 @@
     docker
     lazydocker
     distrobox
+    fastfetch
   ];
 
   nixpkgs.config.allowUnfree = true;
