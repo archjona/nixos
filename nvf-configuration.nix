@@ -11,8 +11,23 @@
     statusline.lualine.enable = true;
     telescope.enable = true;
     autocomplete.nvim-cmp.enable = true;
-    terminal.toggleterm.lazygit.enable = true;
     lsp.enable = true;
+
+    # Keymaps für nvf
+    maps.normal = {
+      # gd für go to definition
+      "gd" = {
+        action = "<cmd>lua vim.lsp.buf.definition()<CR>";
+        silent = true;
+        desc = "Go to definition";
+      };
+    };
+
+    # Zeilennummern absolut statt relativ
+    options = {
+      number = true;      # Zeilennummern anzeigen
+      relativenumber = false;  # relative Nummern ausschalten
+    };
 
     extraPlugins = {
       vimtex = {
@@ -20,13 +35,45 @@
       };
     };
 
-    luaConfigRC.vimtex = ''
-      vim.g.mapleader = " "
-      vim.g.maplocalleader = " "
-      vim.g.vimtex_compiler_method = "latexmk"
-      vim.g.vimtex_view_method = "zathura"
-      vim.g.vimtex_view_automatic = 1
-    '';
+luaConfigRC = {
+      vimtex = ''
+        vim.g.mapleader = " "
+        vim.g.maplocalleader = " "
+        vim.g.vimtex_compiler_method = "latexmk"
+        vim.g.vimtex_view_method = "zathura"
+        vim.g.vimtex_view_automatic = 1
+        
+        -- Latex kompilieren mit leader ll
+        vim.keymap.set("n", "<leader>ll", "<cmd>VimtexCompile<CR>", { silent = true, desc = "Latex kompilieren" })
+      '';
+      # Diagnostics für clangd ausschalten - aktualisierte Version ohne deprecated Funktion
+      clangd-diagnostics = ''
+        -- Clangd Diagnostics deaktivieren (aktualisierte Methode)
+        vim.api.nvim_create_autocmd("LspAttach", {
+          callback = function(args)
+            local client = vim.lsp.get_client_by_id(args.data.client_id)
+            if client and client.name == "clangd" then
+              -- Neue Methode: Diagnostics für diesen Buffer deaktivieren
+              vim.diagnostic.enable(false, { bufnr = args.buf })
+            end
+          end,
+        })
+      '';
+    };
+
+    terminal = {
+      toggleterm = {
+        enable = true;
+
+        lazygit = {
+          enable = true;
+          direction = "float";   # optional, default ist "float"
+          mappings = {
+            open = "<leader>g";
+          };
+        };
+      };
+    };
 
     navigation.harpoon = {
       enable = true;
