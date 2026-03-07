@@ -8,9 +8,9 @@
     ];
 
 
-        environment.sessionVariables = {
-  NIXOS_OZONE_WL = "1";
-};
+  environment.sessionVariables = {
+    NIXOS_OZONE_WL = "1";
+  };
 
   # Bootloader und Systemkonfiguration
   boot.loader.systemd-boot.enable = true;
@@ -53,33 +53,34 @@
   services.gnome.core-developer-tools.enable = false;
   services.gnome.games.enable = false;
   
- environment.gnome.excludePackages = with pkgs; [
-  # Terminals
-  xterm
-  gnome-terminal
-  gnome-console
+  environment.gnome.excludePackages = with pkgs; [
+    # Terminals
+    xterm
+    gnome-terminal
+    gnome-console
+    
+    # GNOME Apps (ALLE direkt, ohne "gnome." Prefix)
+    epiphany        # Web Browser
+    geary           # Email Client
+    gnome-software  # Software Center
+    gnome-tour
+    gnome-connections
+    gnome-contacts
+    gnome-characters
+    gnome-font-viewer
+    simple-scan
+    evince          # Document Viewer
+    gnome-calculator
+    gnome-calendar
+    gnome-clocks
+    cheese          # Camera
+    baobab          # Disks Usage Analyzer
+    gnome-disk-utility
+    seahorse
+    eog             # Image Viewer
+    totem           # Videos
+  ];
   
-  # GNOME Apps (ALLE direkt, ohne "gnome." Prefix)
-  epiphany        # Web Browser
-  geary           # Email Client
-  gnome-software  # Software Center
-  gnome-tour
-  gnome-connections
-  gnome-contacts
-  gnome-characters
-  gnome-font-viewer
-  simple-scan
-  evince          # Document Viewer
-  gnome-calculator
-  gnome-calendar
-  gnome-clocks
-  cheese          # Camera
-  baobab          # Disks Usage Analyzer
-  gnome-disk-utility
-  seahorse
-  eog             # Image Viewer
-  totem           # Videos
-];
   # Printing deaktivieren (wenn nicht benötigt)
   services.printing.enable = false;
   
@@ -87,7 +88,8 @@
   environment.variables = {
     TERMINAL = "kitty";
   }; 
-        services.xserver.xkb = {
+  
+  services.xserver.xkb = {
     layout = "de";
     variant = "";
   };
@@ -97,6 +99,11 @@
   virtualisation.podman.enable = true;
 
   boot.kernelModules = [ "vboxdrv" "vboxnetadp" "vboxnetflt" ];
+  # WICHTIG: Diese Zeile wurde hinzugefügt!
+  boot.extraModulePackages = [ 
+    config.boot.kernelPackages.virtualbox 
+  ];
+
   # Benutzer
   users.users.jona = {
     isNormalUser = true;
