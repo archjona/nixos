@@ -22,6 +22,7 @@
   networking.networkmanager.enable = true;
   time.timeZone = "Europe/Berlin";
   nixpkgs.config.allowUnfree = true;
+  virtualisation.virtualbox.host.enable = true;
 
   services.xserver = {
     enable = true;
@@ -95,11 +96,12 @@
   virtualisation.docker.enable = true;
   virtualisation.podman.enable = true;
 
+  boot.kernelModules = [ "vboxdrv" "vboxnetadp" "vboxnetflt" ];
   # Benutzer
   users.users.jona = {
     isNormalUser = true;
     description = "Jona-Elia";
-    extraGroups = [ "networkmanager" "wheel" "docker" "dialout" "tty" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "dialout" "tty" "vboxusers" ];
   };
 
   home-manager = {
@@ -136,7 +138,7 @@
     rofi btop librewolf spotify discord flatpak zoxide
     fzf zathura texlivePackages.latexmk texliveFull
     docker lazydocker distrobox fastfetch adwaita-icon-theme
-    pavucontrol nautilus loupe celluloid
+    pavucontrol nautilus loupe celluloid virtualbox 
   ];
 
   # Hyprland
