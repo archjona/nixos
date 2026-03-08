@@ -138,7 +138,7 @@
     rofi btop librewolf spotify discord flatpak zoxide
     fzf zathura texlivePackages.latexmk texliveFull
     docker lazydocker distrobox fastfetch adwaita-icon-theme
-    pavucontrol nautilus loupe celluloid wineWow64Packages.waylandFull winetricks wineasio
+    pavucontrol nautilus loupe celluloid wineWow64Packages.waylandFull winetricks 
     
     # QEMU/KVM Tools
     virt-manager
