@@ -92,6 +92,7 @@
       "dialout" 
       "tty" 
       "libvirtd"
+      "audio"
     ];
   };
 
@@ -116,7 +117,17 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
+    jack.enable = true;
+
+        #Optimierung für minimale Latenz
+    extraConfig.pipewire."92-low-latency" = {
+      "context.properties" = {
+        "default.clock.rate" = 48000;
+        "default.clock.min-quantum" = 32;
+      };
+    };
   };
+
 
   console.keyMap = "de";
 
@@ -127,7 +138,7 @@
     rofi btop librewolf spotify discord flatpak zoxide
     fzf zathura texlivePackages.latexmk texliveFull
     docker lazydocker distrobox fastfetch adwaita-icon-theme
-    pavucontrol nautilus loupe celluloid
+    pavucontrol nautilus loupe celluloid wineWow64Packages.waylandFull winetricks wineasio
     
     # QEMU/KVM Tools
     virt-manager
