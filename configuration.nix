@@ -3,26 +3,22 @@
 {
   imports =
     [ 
-      /etc/nixos/hardware-configuration.nix # Nutzt die Datei im selben Ordner
-      ./nvf-configuration.nix      # Bindet deine Neovim-Config ein
+      /etc/nixos/hardware-configuration.nix
+      ./nvf-configuration.nix
     ];
-
 
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
   };
 
-  # Bootloader und Systemkonfiguration
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # --- System-Einstellungen ---
   networking.hostName = "nixos";
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   networking.networkmanager.enable = true;
   time.timeZone = "Europe/Berlin";
   nixpkgs.config.allowUnfree = true;
-  virtualisation.virtualbox.host.enable = true;
 
   services.xserver = {
     enable = true;
@@ -48,43 +44,21 @@
   services.displayManager.gdm.enable = true;
   services.desktopManager.gnome.enable = true;
 
-  # KEINE GNOME-Apps installieren!
-  services.gnome.core-apps.enable = false;  # Keine Basis-Apps
+  services.gnome.core-apps.enable = false;
   services.gnome.core-developer-tools.enable = false;
   services.gnome.games.enable = false;
   
   environment.gnome.excludePackages = with pkgs; [
-    # Terminals
-    xterm
-    gnome-terminal
-    gnome-console
-    
-    # GNOME Apps (ALLE direkt, ohne "gnome." Prefix)
-    epiphany        # Web Browser
-    geary           # Email Client
-    gnome-software  # Software Center
-    gnome-tour
-    gnome-connections
-    gnome-contacts
-    gnome-characters
-    gnome-font-viewer
-    simple-scan
-    evince          # Document Viewer
-    gnome-calculator
-    gnome-calendar
-    gnome-clocks
-    cheese          # Camera
-    baobab          # Disks Usage Analyzer
-    gnome-disk-utility
-    seahorse
-    eog             # Image Viewer
-    totem           # Videos
+    xterm gnome-terminal gnome-console
+    epiphany geary gnome-software gnome-tour
+    gnome-connections gnome-contacts gnome-characters
+    gnome-font-viewer simple-scan evince gnome-calculator
+    gnome-calendar gnome-clocks cheese baobab
+    gnome-disk-utility seahorse eog totem
   ];
   
-  # Printing deaktivieren (wenn nicht benötigt)
   services.printing.enable = false;
   
-  # Optional: Kitty als Standard-Terminal setzen
   environment.variables = {
     TERMINAL = "kitty";
   }; 
@@ -94,21 +68,31 @@
     variant = "";
   };
 
-  # Virtualisierung
-  virtualisation.docker.enable = true;
-  virtualisation.podman.enable = true;
+  # Virtualisierung mit QEMU/KVM - BASIS-Konfiguration (keine Optimierungen)
+  virtualisation = {
+    libvirtd = {
+      enable = true;
+      qemu = {
+        package = pkgs.qemu_kvm;
+        swtpm.enable = true;        # Für TPM 2.0 (Windows 11)
+      };
+    };
+    spiceUSBRedirection.enable = true;
+    docker.enable = true;
+    podman.enable = true;
+  };
 
-  boot.kernelModules = [ "vboxdrv" "vboxnetadp" "vboxnetflt" ];
-  # WICHTIG: Diese Zeile wurde hinzugefügt!
-  boot.extraModulePackages = [ 
-    config.boot.kernelPackages.virtualbox 
-  ];
-
-  # Benutzer
   users.users.jona = {
     isNormalUser = true;
     description = "Jona-Elia";
-    extraGroups = [ "networkmanager" "wheel" "docker" "dialout" "tty" "vboxusers" ];
+    extraGroups = [ 
+      "networkmanager" 
+      "wheel" 
+      "docker" 
+      "dialout" 
+      "tty" 
+      "libvirtd"
+    ];
   };
 
   home-manager = {
@@ -125,7 +109,6 @@
     defaultEditor = true;
   };
 
-  # Audio
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
@@ -137,7 +120,6 @@
 
   console.keyMap = "de";
 
-  # System Pakete
   environment.systemPackages = with pkgs; [
     wget git hyprpaper waybar kitty ghostty swww pywal
     gcc cmake clang python3 nerd-fonts.jetbrains-mono
@@ -145,10 +127,18 @@
     rofi btop librewolf spotify discord flatpak zoxide
     fzf zathura texlivePackages.latexmk texliveFull
     docker lazydocker distrobox fastfetch adwaita-icon-theme
-    pavucontrol nautilus loupe celluloid virtualbox 
+    pavucontrol nautilus loupe celluloid
+    
+    # QEMU/KVM Tools
+    virt-manager
+    virt-viewer
+    qemu
+    spice
+    spice-gtk
+    virtio-win
+    swtpm
   ];
 
-  # Hyprland
   programs.hyprland.enable = true;
   programs.hyprland.package = inputs.hyprland.packages."${pkgs.system}".hyprland;
   xdg.portal.enable = true;

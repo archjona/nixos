@@ -22,7 +22,7 @@
     };
   };
 
-  # Unerwünschte Desktop-Einträge ausblenden - mit EXAKTEN Namen
+  # Desktop-Einträge
   xdg.desktopEntries = {
     # XTerm
     "xterm" = {
@@ -32,6 +32,13 @@
       terminal = false;
     };
     
+        # GANZ OBEN bei den anderen "noDisplay" Einträgen:
+        "virt-manager" = {
+          name = "Virt-Manager";
+          exec = "virt-manager";
+          noDisplay = true;  # Das versteckt ihn!
+        };
+
     # Color Profile Viewer
     "org.gnome.ColorProfileViewer" = {
       name = "Color Profile Viewer";
@@ -112,6 +119,17 @@
       name = "Color Panel";
       exec = "gnome-color-panel";
       noDisplay = true;
+    };
+
+    # NEU: Virt-Manager mit System-Verbindung
+    "virt-manager-system" = {
+      name = "Virt-Manager (System)";
+      comment = "Virt-Manager mit QEMU/KVM System-Verbindung";
+      exec = "virt-manager -c qemu:///system";
+      icon = "virt-manager";
+      categories = [ "System" "Emulator" ];
+      terminal = false;
+      type = "Application";
     };
   };
 
