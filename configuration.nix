@@ -10,10 +10,39 @@
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
   };
-
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
+  # 👇 GRUB mit Theme und korrekter Auflösung
+  boot.loader = {
+    efi = {
+      canTouchEfiVariables = true;
+    };
+    grub = {
+      enable = true;
+      device = "nodev";
+      efiSupport = true;
+      useOSProber = true;
+      
+      # Gruvbox-Theme
+      theme = pkgs.fetchFromGitHub {
+        owner = "Atif-Mahmud";
+        repo = "nix-gruv-grub";
+        rev = "269507de98ecd4fd9c57aa06bf5d8132d6949a06";
+        sha256 = "sha256-UEPZxyT09Z0PiOka/Dh4m8VvqF4l+01eZVbRkPJduDk=";
+      } + "/tartarus";
+      
+      # 👇 DAS IST DER RICHTIGE WEG - DIREKTE OPTIONEN
+      gfxmodeEfi = "1024x768";        # Für EFI-Systeme (dein Laptop)
+      gfxpayloadEfi = "keep";          # Beibehaltung für Kernel
+      
+      # Optional: Auch für BIOS fallback
+      gfxmodeBios = "1024x768";
+      gfxpayloadBios = "keep";
+      
+      # extraConfig kann dann leer bleiben oder für andere Dinge
+      extraConfig = ''
+        # Hier nichts zur Auflösung - das ist jetzt oben geregelt
+      '';
+    };
+  };
   networking.hostName = "nixos";
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   networking.networkmanager.enable = true;
@@ -68,13 +97,13 @@
     variant = "";
   };
 
-  # Virtualisierung mit QEMU/KVM - BASIS-Konfiguration (keine Optimierungen)
+  # Virtualisierung mit QEMU/KVM - BASIS-Konfiguration
   virtualisation = {
     libvirtd = {
       enable = true;
       qemu = {
         package = pkgs.qemu_kvm;
-        swtpm.enable = true;        # Für TPM 2.0 (Windows 11)
+        swtpm.enable = true;
       };
     };
     spiceUSBRedirection.enable = true;
@@ -119,7 +148,7 @@
     pulse.enable = true;
     jack.enable = true;
 
-        #Optimierung für minimale Latenz
+    # Optimierung für minimale Latenz
     extraConfig.pipewire."92-low-latency" = {
       "context.properties" = {
         "default.clock.rate" = 48000;
@@ -127,7 +156,6 @@
       };
     };
   };
-
 
   console.keyMap = "de";
 
