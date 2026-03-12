@@ -163,7 +163,7 @@
     wget git hyprpaper waybar kitty ghostty swww pywal
     gcc cmake clang python3 nerd-fonts.jetbrains-mono
     tmux lazygit hyprshot hyprlock hypridle alsa-utils
-    rofi btop librewolf spotify discord flatpak zoxide
+    rofi btop librewolf spotify vesktop flatpak zoxide
     fzf zathura texlivePackages.latexmk texliveFull
     docker lazydocker distrobox fastfetch adwaita-icon-theme
     pavucontrol nautilus loupe celluloid wineWow64Packages.waylandFull winetricks 
@@ -182,6 +182,8 @@
   programs.hyprland.package = inputs.hyprland.packages."${pkgs.system}".hyprland;
   xdg.portal.enable = true;
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+
+  programs.mango.enable = true;
 
   system.stateVersion = "24.11";
 }
