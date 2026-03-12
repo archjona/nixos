@@ -51,11 +51,7 @@
 
   services.xserver = {
     enable = true;
-    displayManager.sessionCommands = ''
-      export XCURSOR_THEME=Adwaita
-      export XCURSOR_SIZE=24
-    '';
-  };
+     };
 
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.extraLocaleSettings = {
@@ -184,6 +180,5 @@
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
 
   programs.mango.enable = true;
-
-  system.stateVersion = "24.11";
+   system.stateVersion = "24.11";
 }
