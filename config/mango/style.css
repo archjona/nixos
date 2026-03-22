@@ -30,7 +30,6 @@ tooltip {
 #battery,
 #pulseaudio,
 #cpu,
-#temperature,
 #backlight,
 #network,
 #workspaces,
@@ -267,12 +266,6 @@ tooltip {
 }
 
 #cpu  {
-  background: none;
-  color: #ddca9e;
-  border: none;
-}
-
-#temperature {
   background: none;
   color: #ddca9e;
   border: none;

@@ -156,13 +156,14 @@
   console.keyMap = "de";
 
   environment.systemPackages = with pkgs; [
-    wget git hyprpaper waybar kitty ghostty swww pywal
+    wget git hyprpaper waybar kitty swww pywal
     gcc cmake clang python3 nerd-fonts.jetbrains-mono
     tmux lazygit hyprshot hyprlock hypridle alsa-utils
-    rofi btop librewolf spotify vesktop flatpak zoxide
+    rofi btop spotify vesktop flatpak zoxide
     fzf zathura texlivePackages.latexmk texliveFull
     docker lazydocker distrobox fastfetch adwaita-icon-theme
     pavucontrol nautilus loupe celluloid wineWow64Packages.waylandFull winetricks 
+    inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
     
     # QEMU/KVM Tools
     virt-manager

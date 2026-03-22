@@ -11,7 +11,6 @@
     statusline.lualine.enable = true;
     telescope.enable = true;
     autocomplete.nvim-cmp.enable = true;
-    lsp.enable = true;
 
     # Keymaps für nvf
     maps.normal = {
@@ -40,7 +39,7 @@
       };
     };
 
-luaConfigRC = {
+    luaConfigRC = {
       vimtex = ''
         vim.g.mapleader = " "
         vim.g.maplocalleader = " "
@@ -51,7 +50,8 @@ luaConfigRC = {
         -- Latex kompilieren mit leader ll
         vim.keymap.set("n", "<leader>ll", "<cmd>VimtexCompile<CR>", { silent = true, desc = "Latex kompilieren" })
       '';
-      # Diagnostics für clangd ausschalten - aktualisierte Version ohne deprecated Funktion
+      
+      # Diagnostics für clangd ausschalten - bleibt erhalten!
       clangd-diagnostics = ''
         -- Clangd Diagnostics deaktivieren (aktualisierte Methode)
         vim.api.nvim_create_autocmd("LspAttach", {
@@ -92,11 +92,37 @@ luaConfigRC = {
       };
     };
 
+    # === LSP KONFIGURATION (NEU) ===
+    lsp = {
+      enable = true;  # LSP global aktivieren
+      
+      servers = {
+        clangd = {
+          enable = true;
+          # Die richtige Stelle für clangd-Flags
+          extraOptions = {
+            cmd = [
+              "clangd"
+              "--background-index"
+              "--function-arg-placeholders"
+              "--inlay-hints=yes"
+            ];
+          };
+        };
+      };
+    };
+    # ================================
+
     languages = {
       enableTreesitter = true;
       nix.enable = true;
-      clang.enable = true;
-      clang.lsp.enable = true;
+      
+      # clang ENABLE, aber OHNE lsp.opts (weil jetzt oben)
+      clang = {
+        enable = true;
+        # Der lsp-Block wurde hier ENTFERNT!
+      };
+      
       lua.enable = true;
     };
   };

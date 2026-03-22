@@ -17,7 +17,7 @@
         "network",
         "pulseaudio",
         "cpu",
-        "temperature",
+        "battery",
         "backlight",
         "clock",
         "custom/notification",
@@ -62,6 +62,21 @@
             "unlocked": ""
         }
     },
+
+    "battery": {
+      "states": {
+          "full": 100,
+          "good": 95,
+          "decent": 50,
+          "warning": 30,
+          "critical": 20
+      },
+      "format": "{icon}  {capacity}%",
+      "format-time": "{H} h {M} min",
+      "format-alt": "{icon} {time}",
+      "format-icons": ["", "", "", "", ""]
+  },
+
     "cpu": {
       "interval": 2,
       "format": " {load}%"
