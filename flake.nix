@@ -78,6 +78,34 @@
             echo "2. . ./export.sh"
           '';
         };
+        
+        yocto = pkgs.mkShell {
+                 name = "yocto-env";
+                 buildInputs = with pkgs; [
+                 git
+                 gcc
+                 gnumake
+                 python3
+                 diffstat
+                 chrpath
+                 gawk
+                 file
+                 wget
+                 cpio
+                 unzip
+                 rsync
+                 bc
+                 lz4
+                 zstd
+                 # Yocto-spezifisch
+                 rpcsvc-proto
+                 texinfo
+         ];
+        shellHook = ''
+          export LANG=en_US.UTF-8
+          echo "--- Yocto/BitBake Umgebung bereit ---"
+         '';
+        };
 
         /* # Beispiel für weitere Shells:
         web = pkgs.mkShell {
