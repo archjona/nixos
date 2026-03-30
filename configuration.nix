@@ -164,6 +164,7 @@
     docker lazydocker distrobox fastfetch adwaita-icon-theme
     pavucontrol nautilus loupe celluloid wineWow64Packages.waylandFull winetricks 
     inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
+    qtcreator
     
     # QEMU/KVM Tools
     virt-manager
