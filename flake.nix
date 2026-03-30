@@ -106,6 +106,25 @@
           echo "--- Yocto/BitBake Umgebung bereit ---"
          '';
         };
+        
+        web = pkgs.mkShell {
+         name = "web-env";
+          buildInputs = with pkgs; [
+            nodejs_22
+            nodePackages.npm
+           python3
+           python3Packages.requests
+           python3Packages.beautifulsoup4
+           python3Packages.fastapi
+           python3Packages.uvicorn
+         ];
+         shellHook = ''
+            echo "--- Web Umgebung bereit ---"
+            echo "API:     uvicorn api:app --reload"
+           echo "Next.js: npm run dev"
+         '';
+        };        
+
 
         /* # Beispiel für weitere Shells:
         web = pkgs.mkShell {
