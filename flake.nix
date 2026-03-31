@@ -84,7 +84,6 @@
   buildInputs = with pkgs; [
     # --- Basis Build Tools ---
     gcc
-    g++
     gnumake
     cmake
     ninja
