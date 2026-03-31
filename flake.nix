@@ -165,24 +165,17 @@
   ];
 
 
-  shellHook = ''
-    export LANG=en_US.UTF-8
-    export LC_ALL=en_US.UTF-8
-    export LOCALE_ARCHIVE="${pkgs.glibcLocales}/lib/locale/locale-archive"
+ shellHook = ''
+  export LANG=en_US.UTF-8
+  export LC_ALL=en_US.UTF-8
+  export LOCALE_ARCHIVE="${pkgs.glibcLocales}/lib/locale/locale-archive"
+  export PSEUDO_DISABLED=0
+  export PYTHONUNBUFFERED=1
+  export TMPDIR="/tmp"
 
-    # Yocto mag keine Pseudo-Terminals von manchen Tools
-    export PSEUDO_DISABLED=0
-
-    # Verhindert Probleme mit Python-Buffering in BitBake
-    export PYTHONUNBUFFERED=1
-
-    # Stellt sicher dass temporäre Dateien nicht im RAM laufen
-    # (wichtig bei großen Builds)
-    export TMPDIR="/tmp"
-
-    echo "--- Yocto/BitBake Umgebung bereit ---"
-    echo "Denk dran: source oe-init-build-env <build-dir>"
-  '';
+  echo "--- Yocto/BitBake Umgebung bereit ---"
+  echo "Denk dran: cd ~/yocto/kirkstone && source poky/oe-init-build-env builds/rpi"
+        '';
 };        
         web = pkgs.mkShell {
          name = "web-env";
