@@ -97,7 +97,7 @@
     python3Packages.pip
     python3Packages.pexpect
     python3Packages.jinja2
-    python3Packages.GitPython
+    python3Packages.gitpython
 
     # --- SCM ---
     git
