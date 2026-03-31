@@ -79,34 +79,111 @@
           '';
         };
         
-        yocto = pkgs.mkShell {
-                 name = "yocto-env";
-                 buildInputs = with pkgs; [
-                 git
-                 gcc
-                 gnumake
-                 python3
-                 diffstat
-                 chrpath
-                 gawk
-                 file
-                 wget
-                 cpio
-                 unzip
-                 rsync
-                 bc
-                 lz4
-                 zstd
-                 # Yocto-spezifisch
-                 rpcsvc-proto
-                 texinfo
-         ];
-        shellHook = ''
-          export LANG=en_US.UTF-8
-          echo "--- Yocto/BitBake Umgebung bereit ---"
-         '';
-        };
-        
+      yocto = pkgs.mkShell {
+  name = "yocto-env";
+  buildInputs = with pkgs; [
+    # --- Basis Build Tools ---
+    gcc
+    g++
+    gnumake
+    cmake
+    ninja
+    pkg-config
+    binutils
+    patch
+    patchelf
+
+    # --- Python ---
+    python3
+    python3Packages.pip
+    python3Packages.pexpect
+    python3Packages.jinja2
+    python3Packages.GitPython
+
+    # --- SCM ---
+    git
+    git-lfs
+    subversion
+    mercurial
+
+    # --- Compression & Archiving ---
+    lz4
+    zstd
+    lzop
+    gzip
+    bzip2
+    xz
+    unzip
+    zip
+    zlib
+    cpio
+
+    # --- Shell & Scripting ---
+    bash
+    gawk
+    gnused
+    gnugrep
+    findutils
+    diffutils
+    coreutils
+    util-linux
+
+    # --- Netzwerk & Download ---
+    wget
+    curl
+    socat
+
+    # --- Filesystem & Device Tools ---
+    e2fsprogs
+    dosfstools
+    mtdutils
+    squashfsTools
+    parted
+
+    # --- Cross-Compile Support ---
+    bc
+    flex
+    bison
+    openssl
+    openssl.dev
+
+    # --- Dokumentation & Text ---
+    texinfo
+    diffstat
+    chrpath
+    file
+    which
+    tree
+
+    # --- RPC / Misc ---
+    rpcsvc-proto
+    rsync
+    ncurses
+    ncurses.dev
+
+    # --- Locale ---
+    glibcLocales
+  ];
+
+  shellHook = ''
+    export LANG=en_US.UTF-8
+    export LC_ALL=en_US.UTF-8
+    export LOCALE_ARCHIVE="${pkgs.glibcLocales}/lib/locale/locale-archive"
+
+    # Yocto mag keine Pseudo-Terminals von manchen Tools
+    export PSEUDO_DISABLED=0
+
+    # Verhindert Probleme mit Python-Buffering in BitBake
+    export PYTHONUNBUFFERED=1
+
+    # Stellt sicher dass temporäre Dateien nicht im RAM laufen
+    # (wichtig bei großen Builds)
+    export TMPDIR="/tmp"
+
+    echo "--- Yocto/BitBake Umgebung bereit ---"
+    echo "Denk dran: source oe-init-build-env <build-dir>"
+  '';
+};        
         web = pkgs.mkShell {
          name = "web-env";
           buildInputs = with pkgs; [
