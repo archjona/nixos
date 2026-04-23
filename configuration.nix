@@ -9,6 +9,7 @@
 
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
+    GEMINI_API_KEY = "AIzaSyBsbYp0qLInkWjfmx7QpgtB962fdF80lso";
   };
   # 👇 GRUB mit Theme und korrekter Auflösung
   boot.loader = {
@@ -164,7 +165,7 @@
     docker lazydocker distrobox fastfetch adwaita-icon-theme
     pavucontrol nautilus loupe celluloid wineWow64Packages.waylandFull winetricks 
     inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
-    qtcreator
+    qtcreator qbittorrent ivpn ivpn-ui ivpn-service fd ripgrep
     
     # QEMU/KVM Tools
     virt-manager
@@ -175,6 +176,8 @@
     virtio-win
     swtpm
   ];
+
+  services.ivpn.enable = true;
 
   programs.hyprland.enable = true;
   programs.hyprland.package = inputs.hyprland.packages."${pkgs.system}".hyprland;
