@@ -1,11 +1,16 @@
-{ config, pkgs, lib, inputs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 
 {
-  imports =
-    [ 
-      /etc/nixos/hardware-configuration.nix
-      ./nvf-configuration.nix
-    ];
+  imports = [
+    /etc/nixos/hardware-configuration.nix
+    ./nvf-configuration.nix
+  ];
 
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
@@ -21,23 +26,25 @@
       device = "nodev";
       efiSupport = true;
       useOSProber = true;
-      
+
       # Gruvbox-Theme
-      theme = pkgs.fetchFromGitHub {
-        owner = "Atif-Mahmud";
-        repo = "nix-gruv-grub";
-        rev = "269507de98ecd4fd9c57aa06bf5d8132d6949a06";
-        sha256 = "sha256-UEPZxyT09Z0PiOka/Dh4m8VvqF4l+01eZVbRkPJduDk=";
-      } + "/tartarus";
-      
+      theme =
+        pkgs.fetchFromGitHub {
+          owner = "Atif-Mahmud";
+          repo = "nix-gruv-grub";
+          rev = "269507de98ecd4fd9c57aa06bf5d8132d6949a06";
+          sha256 = "sha256-UEPZxyT09Z0PiOka/Dh4m8VvqF4l+01eZVbRkPJduDk=";
+        }
+        + "/tartarus";
+
       # 👇 DAS IST DER RICHTIGE WEG - DIREKTE OPTIONEN
-      gfxmodeEfi = "1024x768";        # Für EFI-Systeme (dein Laptop)
-      gfxpayloadEfi = "keep";          # Beibehaltung für Kernel
-      
+      gfxmodeEfi = "1024x768"; # Für EFI-Systeme (dein Laptop)
+      gfxpayloadEfi = "keep"; # Beibehaltung für Kernel
+
       # Optional: Auch für BIOS fallback
       gfxmodeBios = "1024x768";
       gfxpayloadBios = "keep";
-      
+
       # extraConfig kann dann leer bleiben oder für andere Dinge
       extraConfig = ''
         # Hier nichts zur Auflösung - das ist jetzt oben geregelt
@@ -45,14 +52,17 @@
     };
   };
   networking.hostName = "nixos";
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
   networking.networkmanager.enable = true;
   time.timeZone = "Europe/Berlin";
   nixpkgs.config.allowUnfree = true;
 
   services.xserver = {
     enable = true;
-     };
+  };
 
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.extraLocaleSettings = {
@@ -73,22 +83,38 @@
   services.gnome.core-apps.enable = false;
   services.gnome.core-developer-tools.enable = false;
   services.gnome.games.enable = false;
-  
+
   environment.gnome.excludePackages = with pkgs; [
-    xterm gnome-terminal gnome-console
-    epiphany geary gnome-software gnome-tour
-    gnome-connections gnome-contacts gnome-characters
-    gnome-font-viewer simple-scan evince gnome-calculator
-    gnome-calendar gnome-clocks cheese baobab
-    gnome-disk-utility seahorse eog totem
+    xterm
+    gnome-terminal
+    gnome-console
+    epiphany
+    geary
+    gnome-software
+    gnome-tour
+    gnome-connections
+    gnome-contacts
+    gnome-characters
+    gnome-font-viewer
+    simple-scan
+    evince
+    gnome-calculator
+    gnome-calendar
+    gnome-clocks
+    cheese
+    baobab
+    gnome-disk-utility
+    seahorse
+    eog
+    totem
   ];
-  
+
   services.printing.enable = false;
-  
+
   environment.variables = {
     TERMINAL = "kitty";
-  }; 
-  
+  };
+
   services.xserver.xkb = {
     layout = "de";
     variant = "";
@@ -111,12 +137,12 @@
   users.users.jona = {
     isNormalUser = true;
     description = "Jona-Elia";
-    extraGroups = [ 
-      "networkmanager" 
-      "wheel" 
-      "docker" 
-      "dialout" 
-      "tty" 
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "docker"
+      "dialout"
+      "tty"
       "libvirtd"
       "audio"
     ];
@@ -157,16 +183,55 @@
   console.keyMap = "de";
 
   environment.systemPackages = with pkgs; [
-    wget git hyprpaper waybar kitty swww pywal
-    gcc cmake clang python3 nerd-fonts.jetbrains-mono
-    tmux lazygit hyprshot hyprlock hypridle alsa-utils
-    rofi btop spotify vesktop flatpak zoxide
-    fzf zathura texlivePackages.latexmk texliveFull
-    docker lazydocker distrobox fastfetch adwaita-icon-theme
-    pavucontrol nautilus loupe celluloid wineWow64Packages.waylandFull winetricks 
+    wget
+    git
+    hyprpaper
+    waybar
+    kitty
+    swww
+    pywal
+    gcc
+    cmake
+    clang
+    python3
+    nerd-fonts.jetbrains-mono
+    tmux
+    lazygit
+    hyprshot
+    hyprlock
+    hypridle
+    alsa-utils
+    rofi
+    btop
+    spotify
+    vesktop
+    flatpak
+    zoxide
+    fzf
+    zathura
+    texlivePackages.latexmk
+    texliveFull
+    docker
+    lazydocker
+    distrobox
+    fastfetch
+    adwaita-icon-theme
+    pavucontrol
+    nautilus
+    loupe
+    celluloid
+    wineWow64Packages.waylandFull
+    winetricks
     inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
-    qtcreator qbittorrent ivpn ivpn-ui ivpn-service fd ripgrep
-    
+    qtcreator
+    qbittorrent
+    ivpn
+    ivpn-ui
+    ivpn-service
+    fd
+    ripgrep
+    _7zip-zstd
+
     # QEMU/KVM Tools
     virt-manager
     virt-viewer
@@ -185,5 +250,5 @@
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
 
   programs.mango.enable = true;
-   system.stateVersion = "24.11";
+  system.stateVersion = "24.11";
 }
