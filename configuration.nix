@@ -230,7 +230,7 @@
     ivpn-service
     fd
     ripgrep
-    _7zip-zstd
+    p7zip
 
     # QEMU/KVM Tools
     virt-manager
