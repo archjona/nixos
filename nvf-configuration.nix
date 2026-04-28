@@ -32,7 +32,7 @@
       };
     };
 
-   clipboard = {
+    clipboard = {
       enable = true;
       registers = "unnamedplus";
       providers = {
@@ -52,6 +52,13 @@
       relativenumber = false;
     };
 
+    # vimtex plugin
+
+    extraPlugins = {
+      vimtex = {
+        package = pkgs.vimPlugins.vimtex;
+      };
+    };
     # ==============================================
     # 🎯 TREE-SITTER GRAMMATIK
     # ==============================================
