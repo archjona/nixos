@@ -231,6 +231,7 @@
     fd
     ripgrep
     p7zip
+    libreoffice
 
     # QEMU/KVM Tools
     virt-manager
