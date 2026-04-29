@@ -84,6 +84,13 @@
   services.gnome.core-developer-tools.enable = false;
   services.gnome.games.enable = false;
 
+  hardware.opengl = {
+    enable = true;
+    extraPackages = with pkgs; [
+      intel-media-driver # Für Hardware-Videobeschleunigung
+    ];
+  };
+
   environment.gnome.excludePackages = with pkgs; [
     xterm
     gnome-terminal
@@ -232,6 +239,7 @@
     ripgrep
     p7zip
     libreoffice
+    zed-editor
 
     # QEMU/KVM Tools
     virt-manager
