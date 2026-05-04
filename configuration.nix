@@ -237,9 +237,9 @@
     ivpn-service
     fd
     ripgrep
-    p7zip
     libreoffice
     zed-editor
+    pdfarranger
 
     # QEMU/KVM Tools
     virt-manager
