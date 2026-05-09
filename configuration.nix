@@ -241,7 +241,6 @@
     libreoffice
     zed-editor
     pdfarranger
-    foot
     cmake
     ninja # schneller als make
     gcc # oder clang
