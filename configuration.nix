@@ -13,6 +13,10 @@
     ./qt-dev.nix
   ];
 
+  fonts.packages = with pkgs; [
+    nerd-fonts.geist-mono
+  ];
+
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
     GEMINI_API_KEY = "AIzaSyBsbYp0qLInkWjfmx7QpgtB962fdF80lso";
