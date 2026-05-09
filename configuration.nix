@@ -253,6 +253,7 @@
     pkg-config
     vscode-extensions.vadimcn.vscode-lldb
     lldb
+    thunderbird
 
     # QEMU/KVM Tools
     virt-manager
