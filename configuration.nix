@@ -13,13 +13,20 @@
     ./qt-dev.nix
   ];
 
-  fonts.packages = with pkgs; [
-    nerd-fonts.geist-mono
-  ];
+  networking.firewall.trustedInterfaces = [ "tailscale0" ];
+  services.tailscale.enable = true;
+  fonts = {
+    packages = with pkgs; [
+      nerd-fonts.geist-mono
+    ];
+    fontconfig.defaultFonts = {
+      monospace = [ "GeistMono Nerd Font Mono" ];
+    };
+  };
 
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
-    GEMINI_API_KEY = "AIzaSyBsbYp0qLInkWjfmx7QpgtB962fdF80lso";
+    PATH = [ "$HOME/.local/bin" ];
   };
   # 👇 GRUB mit Theme und korrekter Auflösung
   boot.loader = {
@@ -257,7 +264,11 @@
     vscode-extensions.vadimcn.vscode-lldb
     lldb
     thunderbird
-
+    grim
+    slurp
+    wl-clipboard
+    satty
+    nextcloud-client
     # QEMU/KVM Tools
     virt-manager
     virt-viewer
