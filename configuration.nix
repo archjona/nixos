@@ -277,6 +277,7 @@
     spice-gtk
     virtio-win
     swtpm
+    yazi
   ];
 
   services.ivpn.enable = true;
