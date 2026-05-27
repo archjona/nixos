@@ -273,23 +273,16 @@
     wl-mirror
     (writeShellScriptBin "mirror" ''
       src=eDP-1
-      # Läuft schon? -> aus (Toggle)
       if ${procps}/bin/pkill -x wl-mirror; then
         echo "mirror off"; exit 0
       fi
-      # ersten angeschlossenen externen Output finden
-      ext=
-      for c in /sys/class/drm/card*-*/status; do
-        [ "$(<"$c")" = connected ] || continue
-        n=''${c%/status}; n=''${n##*/}; n=''${n#card*-}
-        [ "$n" = "$src" ] && continue
-        ext=$n; break
-      done
+      # externen Output so benennen, wie wlroots ihn kennt
+      ext=$(${wlr-randr}/bin/wlr-randr \
+            | ${gawk}/bin/awk -v s="$src" '/^[^[:space:]]/ && $1 != s {print $1; exit}')
       if [ -z "$ext" ]; then echo "kein externer Schirm verbunden"; exit 1; fi
       echo "mirror: $src -> $ext"
       exec ${wl-mirror}/bin/wl-mirror --fullscreen-output "$ext" "$src"
     '')
-
     # QEMU/KVM Tools
     virt-manager
     virt-viewer
