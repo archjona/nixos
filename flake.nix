@@ -2,7 +2,7 @@
   description = "Nixos config flake";
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+    # hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
     nvf.url = "github:notashelf/nvf";
     mangowc = {
       url = "github:mangowm/mango";

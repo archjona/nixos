@@ -259,21 +259,6 @@ in
     '';
 
   home.file = {
-    ".config/hypr" = {
-      source = ./config/hypr;
-      recursive = true;
-      force = true;
-    };
-    ".config/waybar" = {
-      source = ./config/waybar;
-      recursive = true;
-      force = true;
-    };
-    ".config/ghostty" = {
-      source = ./config/ghostty;
-      recursive = true;
-      force = true;
-    };
     ".config/rofi" = {
       source = ./config/rofi;
       recursive = true;

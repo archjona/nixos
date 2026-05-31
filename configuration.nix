@@ -204,7 +204,6 @@
   environment.systemPackages = with pkgs; [
     wget
     git
-    hyprpaper
     waybar
     kitty
     swww
@@ -216,9 +215,6 @@
     nerd-fonts.jetbrains-mono
     tmux
     lazygit
-    hyprshot
-    hyprlock
-    hypridle
     alsa-utils
     rofi
     btop
@@ -299,8 +295,8 @@
 
   services.ivpn.enable = true;
 
-  programs.hyprland.enable = true;
-  programs.hyprland.package = inputs.hyprland.packages."${pkgs.system}".hyprland;
+  # programs.hyprland.enable = true;
+  # programs.hyprland.package = inputs.hyprland.packages."${pkgs.system}".hyprland;
   xdg.portal.enable = true;
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
 
