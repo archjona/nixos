@@ -269,6 +269,9 @@
     wl-clipboard
     satty
     nextcloud-client
+    inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
+    yazi
+    wlr-randr
 
     wl-mirror
     (writeShellScriptBin "mirror" ''
@@ -291,7 +294,6 @@
     spice-gtk
     virtio-win
     swtpm
-    yazi
 
   ];
 
