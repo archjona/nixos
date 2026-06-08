@@ -268,6 +268,7 @@
     inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
     yazi
     wlr-randr
+    joplin-desktop
 
     wl-mirror
     (writeShellScriptBin "mirror" ''
