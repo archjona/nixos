@@ -752,7 +752,7 @@ in
       };
 
       sessionMenu = {
-        enableCountdown = true;
+        enableCountdown = false;
         countdownDuration = 0;
         position = "center";
         showHeader = true;
