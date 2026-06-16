@@ -753,7 +753,7 @@ in
 
       sessionMenu = {
         enableCountdown = true;
-        countdownDuration = 1000;
+        countdownDuration = 0;
         position = "center";
         showHeader = true;
         showKeybinds = true;
@@ -763,56 +763,56 @@ in
           {
             action = "lock";
             command = "";
-            countdownEnabled = true;
+            countdownEnabled = false;
             enabled = true;
             keybind = "1";
           }
           {
             action = "suspend";
             command = "";
-            countdownEnabled = true;
+            countdownEnabled = false;
             enabled = false;
             keybind = "";
           }
           {
             action = "hibernate";
             command = "";
-            countdownEnabled = true;
+            countdownEnabled = false;
             enabled = false;
             keybind = "";
           }
           {
             action = "reboot";
             command = "";
-            countdownEnabled = true;
+            countdownEnabled = false;
             enabled = true;
             keybind = "2";
           }
           {
             action = "logout";
             command = "";
-            countdownEnabled = true;
+            countdownEnabled = false;
             enabled = true;
             keybind = "3";
           }
           {
             action = "shutdown";
             command = "";
-            countdownEnabled = true;
+            countdownEnabled = false;
             enabled = true;
             keybind = "4";
           }
           {
             action = "rebootToUefi";
             command = "";
-            countdownEnabled = true;
+            countdownEnabled = false;
             enabled = false;
             keybind = "";
           }
           {
             action = "userspaceReboot";
             command = "";
-            countdownEnabled = true;
+            countdownEnabled = false;
             enabled = false;
             keybind = "";
           }
