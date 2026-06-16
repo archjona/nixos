@@ -477,7 +477,7 @@ in
         allowPanelsOnScreenWithoutBar = true;
         showChangelogOnStartup = true;
         telemetryEnabled = false;
-        enableLockScreenCountdown = true;
+        enableLockScreenCountdown = false;
         lockScreenCountdownDuration = 10000;
         autoStartAuth = false;
         allowPasswordWithFprintd = false;
